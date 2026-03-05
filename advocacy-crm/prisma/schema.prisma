@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id            String    @id @default(cuid())
+  name          String
+  companySize   String
+  industry      String
+  productsUsed  String[]  @default([])
+  npsScore      Int?
+  internalOwner String
+  notes         String?
+  salesforceId  String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  contacts      Contact[]
+}
+
+model Contact {
+  id                String     @id @default(cuid())
+  firstName         String
+  lastName          String
+  email             String?
+  jobTitle          String?
+  linkedinUrl       String?
+  accountId         String
+  account           Account    @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  relationshipOwner String?
+  communities       String[]   @default([])
+  willingnessTags   String[]   @default([])
+  notes             String?
+  salesforceId      String?
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+  activities        Activity[]
+}
+
+model Activity {
+  id             String       @id @default(cuid())
+  contactId      String
+  contact        Contact      @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  activityTypeId String
+  activityType   ActivityType @relation(fields: [activityTypeId], references: [id])
+  date           DateTime
+  title          String
+  notes          String?
+  loggedBy       String?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+}
+
+model ActivityType {
+  id         String     @id @default(cuid())
+  name       String
+  slug       String     @unique
+  archived   Boolean    @default(false)
+  sortOrder  Int        @default(0)
+  createdAt  DateTime   @default(now())
+  activities Activity[]
+}
+
+model Community {
+  id        String   @id @default(cuid())
+  name      String
+  archived  Boolean  @default(false)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model WillingnessTag {
+  id        String   @id @default(cuid())
+  name      String
+  archived  Boolean  @default(false)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model Industry {
+  id        String   @id @default(cuid())
+  name      String
+  archived  Boolean  @default(false)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model Product {
+  id        String   @id @default(cuid())
+  name      String
+  archived  Boolean  @default(false)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+}
