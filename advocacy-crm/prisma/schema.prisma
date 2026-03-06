@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                String    @id @default(cuid())
+  name              String
+  industry          String    @default("")
+  tier              String    @default("PROSPECT")
+  website           String    @default("")
+  relationshipOwner String    @default("")
+  notes             String    @default("")
+  contacts          Contact[]
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+}
+
+model Contact {
+  id                String   @id @default(cuid())
+  firstName         String
+  lastName          String
+  email             String   @unique
+  jobTitle          String   @default("")
+  linkedinUrl       String   @default("")
+  relationshipOwner String   @default("")
+  notes             String   @default("")
+  account           Account? @relation(fields: [accountId], references: [id])
+  accountId         String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}

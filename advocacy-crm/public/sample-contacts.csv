@@ -1,0 +1,6 @@
+First Name,Last Name,Email,Job Title,Company Name,LinkedIn URL,Relationship Owner,Notes
+Jane,Doe,jane.doe@acme.com,VP of Marketing,Acme Corp,https://linkedin.com/in/janedoe,Jane Smith,Primary champion contact. Very responsive.
+Bob,Smith,bob.smith@betasolutions.io,Head of Partnerships,Beta Solutions,https://linkedin.com/in/bobsmith,Mike Chen,Prefers Slack over email.
+Carol,White,carol.white@gammahealth.com,Director of IT,Gamma Health,,Sarah Lee,Reference approved for peer calls.
+David,Jones,david.jones@deltafinance.com,CTO,Delta Finance,https://linkedin.com/in/davidjones,Tom Brown,Decision maker for expansion deal.
+Eve,Brown,eve.brown@epsilonretail.com,CMO,Epsilon Retail,,,"Met at Dreamforce. No company in CRM yet, add manually."
